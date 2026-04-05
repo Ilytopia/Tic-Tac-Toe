@@ -8,7 +8,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject _player1;
     [SerializeField] private GameObject _player2;
 
-    private int _currentRound = 1;
+    //private int _currentRound = 1;
 
     [SerializeField] private GameObject _currentPlayer;
     private Random  _random =  new Random();
@@ -122,8 +122,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         if (winning_condition)
-        {            Debug.Log("Ici");
-
+        {
             EndGame();
         }
         
@@ -321,7 +320,12 @@ public class GameplayManager : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("End of Game");
+        foreach (GameGridDetections game_button in  _gameButtons)
+        {
+            game_button.enabled = false;
+        }
+        enabled = false;
+        //Debug.Log("End of Game");
     }
 
     public GameObject GetCurrentPlayer()
