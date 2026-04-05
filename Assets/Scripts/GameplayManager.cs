@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class GameplayManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class GameplayManager : MonoBehaviour
     private GameGridDetections[] _gameButtons;
     
     [SerializeField] private TMP_Text _currentPlayerRoundText;
+    
+    private GameManager _gameManager;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,6 +57,8 @@ public class GameplayManager : MonoBehaviour
         }
 
         _currentPlayerRoundText.text = _currentPlayer.gameObject.name;
+        
+        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -325,7 +330,8 @@ public class GameplayManager : MonoBehaviour
             game_button.enabled = false;
         }
         enabled = false;
-        //Debug.Log("End of Game");
+        
+        SceneManager.LoadScene(0);
     }
 
     public GameObject GetCurrentPlayer()
