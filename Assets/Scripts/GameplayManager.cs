@@ -53,7 +53,7 @@ public class GameplayManager : MonoBehaviour
             }
         }
 
-        _currentPlayerRoundText.text = _currentPlayer.ToString();
+        _currentPlayerRoundText.text = _currentPlayer.gameObject.name;
     }
 
     // Update is called once per frame
@@ -75,7 +75,7 @@ public class GameplayManager : MonoBehaviour
             _currentPlayer = _player1;
         }
         
-        _currentPlayerRoundText.text = _currentPlayer.ToString();
+        _currentPlayerRoundText.text = _currentPlayer.gameObject.name;
     }
 
     // WARNING the array is in reverse order so 0 is the 9th box and 8 is the 1rst box
