@@ -10,6 +10,10 @@ public class GameGridDetections : MonoBehaviour
     private bool _clickWasPressed;
     
     private Collider2D _collider2D;
+    private Camera _camera;
+
+    private bool _alreadyFull;
+    private SpriteRenderer _renderer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +21,8 @@ public class GameGridDetections : MonoBehaviour
         _clickAction = InputSystem.actions.FindAction("Attack");
 
         _collider2D = GetComponent<Collider2D>();
+        _camera = Camera.main;
+        _renderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -32,11 +38,20 @@ public class GameGridDetections : MonoBehaviour
 
     private void CheckIfInteractWithBox()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector3.forward);
+        RaycastHit2D hit = Physics2D.Raycast(_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector3.forward);
         
-        if (hit.collider == _collider2D)
+        if (hit.collider == _collider2D && !_alreadyFull)
         {
+            ChangeVisual();
             _gameplayManager.ChangeTurn();
         }
+    }
+
+    private void ChangeVisual()
+    {
+        _alreadyFull = true;
+        GameObject player = _gameplayManager.GetCurrentPlayer();
+        
+        _renderer.sprite = player.GetComponentInChildren<SpriteRenderer>().sprite;
     }
 }

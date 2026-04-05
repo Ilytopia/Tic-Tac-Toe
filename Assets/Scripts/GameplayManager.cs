@@ -81,4 +81,9 @@ public class GameplayManager : MonoBehaviour
     {
         
     }
+
+    public GameObject GetCurrentPlayer()
+    {
+        return _currentPlayer;
+    }
 }
