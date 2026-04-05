@@ -14,6 +14,7 @@ public class GameGridDetections : MonoBehaviour
 
     private bool _alreadyFull;
     private SpriteRenderer _renderer;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,5 +54,10 @@ public class GameGridDetections : MonoBehaviour
         GameObject player = _gameplayManager.GetCurrentPlayer();
         
         _renderer.sprite = player.GetComponentInChildren<SpriteRenderer>().sprite;
+    }
+
+    public bool GetIsFull()
+    {
+        return _alreadyFull;
     }
 }

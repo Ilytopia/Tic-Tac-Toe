@@ -13,9 +13,10 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject _currentPlayer;
     private Random  _random =  new Random();
 
-    private GameObject[] _gameButtons;
+    private GameGridDetections[] _gameButtons;
     
     [SerializeField] private TMP_Text _currentPlayerRoundText;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +28,7 @@ public class GameplayManager : MonoBehaviour
             throw new NotImplementedException();
         }
         
-        _gameButtons = GameObject.FindGameObjectsWithTag("GameButton");
+        _gameButtons = FindObjectsByType<GameGridDetections>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
 
         if (_gameButtons.Length != 9)
         {
@@ -79,7 +80,19 @@ public class GameplayManager : MonoBehaviour
 
     private void CheckWinningCondition()
     {
-        
+        bool is_full = true;
+        foreach (GameGridDetections gameButton in _gameButtons)
+        {
+            if (!gameButton.GetIsFull())
+            {
+                is_full = false;
+            }
+        }
+
+        if (is_full)
+        {
+            Debug.Log("End of Game");
+        }
     }
 
     public GameObject GetCurrentPlayer()
