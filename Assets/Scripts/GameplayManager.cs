@@ -14,7 +14,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject _currentPlayer;
     private Random  _random =  new Random();
 
-    private GameGridDetections[] _gameButtons;
+    [SerializeField] private GameGridDetections[] _gameButtons;
     
     [SerializeField] private TMP_Text _currentPlayerRoundText;
     
@@ -31,7 +31,7 @@ public class GameplayManager : MonoBehaviour
             throw new NotImplementedException();
         }
         
-        _gameButtons = FindObjectsByType<GameGridDetections>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
+        // _gameButtons = FindObjectsByType<GameGridDetections>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
 
         if (_gameButtons.Length != 9)
         {
