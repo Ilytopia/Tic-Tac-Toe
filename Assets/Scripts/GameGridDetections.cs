@@ -13,6 +13,7 @@ public class GameGridDetections : MonoBehaviour
     private Camera _camera;
 
     private bool _alreadyFull;
+    private int _playerIndex;
     private SpriteRenderer _renderer;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,10 +55,24 @@ public class GameGridDetections : MonoBehaviour
         GameObject player = _gameplayManager.GetCurrentPlayer();
         
         _renderer.sprite = player.GetComponentInChildren<SpriteRenderer>().sprite;
+
+        if (player.CompareTag("Player1"))
+        {
+            _playerIndex = 1;
+        }
+        else if (player.CompareTag("Player2"))
+        {
+            _playerIndex = 2;
+        }
     }
 
     public bool GetIsFull()
     {
         return _alreadyFull;
+    }
+
+    public int GetPlayerIndex()
+    {
+        return _playerIndex;
     }
 }
