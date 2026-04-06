@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 59964195163c9ff40b39985c490b5dbe
+guid: 281e71ec5c0a1834488182170d0fa4ad
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5899927303015767666
-    second: Ghost_0
-  - first:
-      213: 6824852377700625651
-    second: Ghost_1
+      213: 652598489692927773
+    second: Dog_face_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ghost_0
+      name: Dog_face_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 29
         y: 69
-        width: 61
-        height: 52
+        width: 262
+        height: 172
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e81ed17806f3f1ea0800000000000000
-      internalID: -5899927303015767666
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ghost_1
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 29
-        width: 251
-        height: 272
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3fc6351f31fb6be50800000000000000
-      internalID: 6824852377700625651
+      spriteID: d177a176ede7e0900800000000000000
+      internalID: 652598489692927773
       vertices: []
       indices: 
       edges: []
@@ -160,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ghost_0: -5899927303015767666
-      Ghost_1: 6824852377700625651
+      Dog_face_0: 652598489692927773
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

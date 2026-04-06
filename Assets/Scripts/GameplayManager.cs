@@ -6,12 +6,12 @@ using Random = System.Random;
 
 public class GameplayManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _player1;
-    [SerializeField] private GameObject _player2;
+    [SerializeField] private Player _player1;
+    [SerializeField] private Player _player2;
 
     //private int _currentRound = 1;
 
-    [SerializeField] private GameObject _currentPlayer;
+    [SerializeField] private Player _currentPlayer;
     private Random  _random =  new Random();
 
     [SerializeField] private GameGridDetections[] _gameButtons;
@@ -23,8 +23,8 @@ public class GameplayManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _player1 = GameObject.FindGameObjectWithTag("Player1");
-        _player2 = GameObject.FindGameObjectWithTag("Player2");
+        _player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<Player>();
+        _player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<Player>();
 
         if (_player1 == null || _player2 == null)
         {
@@ -98,6 +98,7 @@ public class GameplayManager : MonoBehaviour
         if (is_full)
         {
             EndGame();
+            return;
         }
 
         int player_checking;
@@ -129,6 +130,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Middle row
@@ -156,6 +158,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Top row
@@ -183,6 +186,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Check Column
@@ -211,6 +215,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Middle column
@@ -238,6 +243,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Left column
@@ -265,6 +271,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Check diagonals
@@ -293,6 +300,7 @@ public class GameplayManager : MonoBehaviour
         if (winning_condition)
         {
             EndGame();
+            return;
         }
         
         // Second diagonal (top-right -> bottom-left)
@@ -334,7 +342,7 @@ public class GameplayManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public GameObject GetCurrentPlayer()
+    public Player GetCurrentPlayer()
     {
         return _currentPlayer;
     }
