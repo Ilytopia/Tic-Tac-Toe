@@ -52,9 +52,9 @@ public class GameGridDetections : MonoBehaviour
     private void ChangeVisual()
     {
         _alreadyFull = true;
-        GameObject player = _gameplayManager.GetCurrentPlayer();
+        Player player = _gameplayManager.GetCurrentPlayer();
         
-        _renderer.sprite = player.GetComponentInChildren<SpriteRenderer>().sprite;
+        _renderer.sprite = player.GetSpriteRenderer().sprite;
 
         if (player.CompareTag("Player1"))
         {
