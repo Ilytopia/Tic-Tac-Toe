@@ -1,7 +1,9 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 using Random = System.Random;
 
 public class GameplayManager : MonoBehaviour
@@ -20,6 +22,11 @@ public class GameplayManager : MonoBehaviour
     
     private GameManager _gameManager;
     
+    private InputAction _clickAction;
+    private Camera _camera;
+
+    [SerializeField] private VisualEffect _clickVFX;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,6 +37,9 @@ public class GameplayManager : MonoBehaviour
         {
             throw new NotImplementedException();
         }
+        
+        _clickAction = InputSystem.actions.FindAction("Attack");
+        _camera = Camera.main;
         
         // _gameButtons = FindObjectsByType<GameGridDetections>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
 
@@ -64,7 +74,11 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_clickAction.WasPressedThisFrame())
+        {
+            RaycastHit2D hit = Physics2D.Raycast(_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue()), Vector3.forward);
+            
+        }
     }
 
     public void ChangeTurn()
