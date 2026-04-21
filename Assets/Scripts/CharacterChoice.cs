@@ -11,7 +11,7 @@ public class CharacterChoice : MonoBehaviour
     private InputAction _clickAction;
     private Camera _camera;
     
-    private List<ChoosableCharacter> _choosableCharacters = new List<ChoosableCharacter>();
+    public List<ChoosableCharacter> _choosableCharacters = new List<ChoosableCharacter>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +24,7 @@ public class CharacterChoice : MonoBehaviour
         _clickAction = InputSystem.actions.FindAction("Attack");
         _camera = Camera.main;
 
-        foreach (ChoosableCharacter choosable_character in FindObjectsByType<ChoosableCharacter>(FindObjectsSortMode.None))
+        foreach (ChoosableCharacter choosable_character in FindObjectsByType<ChoosableCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             _choosableCharacters.Add(choosable_character);
         }
@@ -51,8 +51,15 @@ public class CharacterChoice : MonoBehaviour
 
         foreach (ChoosableCharacter choosable_character in _choosableCharacters)
         {
-            if (choosable_character.gameObject == hit.collider.gameObject)
+            if (!choosable_character.enabled)
             {
+                continue;
+            }
+            
+            if (choosable_character.gameObject == hit.collider.gameObject && !choosable_character.GetCharacterChosen())
+            {
+                choosable_character.SetCharacterChosen(true);
+
                 if (_player1.enabled)
                 {
                     _player1.SetSprite(choosable_character.GetSpriteRenderer().sprite);
@@ -62,6 +69,15 @@ public class CharacterChoice : MonoBehaviour
                     _player2.SetSprite(choosable_character.GetSpriteRenderer().sprite);
                 }
             }
+            else if (choosable_character.gameObject == hit.collider.gameObject &&
+                     choosable_character.GetCharacterChosen())
+            {
+                choosable_character.SetCharacterChosen(true);
+            }
+            else
+            {
+                choosable_character.SetCharacterChosen(false);
+            }
         }
     }
 
@@ -69,6 +85,24 @@ public class CharacterChoice : MonoBehaviour
     {
         if (_player2.enabled)
         {
+            foreach (ChoosableCharacter choosable_character in _choosableCharacters)
+            {
+                if (!choosable_character.enabled)
+                {
+                    choosable_character.enabled = true;
+                    choosable_character.SetCharacterChosen(false);
+                }
+                
+                if (choosable_character.GetCharacterChosen())
+                {
+                    choosable_character.enabled = false;
+                }
+                else
+                {
+                    choosable_character.enabled = true;
+                }
+            }
+            
             _player2.enabled = false;
             _player1.enabled = true;
         }
@@ -84,6 +118,24 @@ public class CharacterChoice : MonoBehaviour
     {
         if (_player1.enabled)
         {
+            foreach (ChoosableCharacter choosable_character in _choosableCharacters)
+            {
+                if (!choosable_character.enabled)
+                {
+                    choosable_character.enabled = true;
+                    choosable_character.SetCharacterChosen(false);
+                }
+                
+                if (choosable_character.GetCharacterChosen())
+                {
+                    choosable_character.enabled = false;
+                }
+                else
+                {
+                    choosable_character.enabled = true;
+                }
+            }
+
             _player1.enabled = false;
             _player2.enabled = true;
         }

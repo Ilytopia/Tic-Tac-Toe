@@ -339,6 +339,9 @@ public class GameplayManager : MonoBehaviour
         }
         enabled = false;
         
+        Destroy(_player1.gameObject);
+        Destroy(_player2.gameObject);
+        
         SceneManager.LoadScene(0);
     }
 
