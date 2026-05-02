@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class CharacterChoice : MonoBehaviour
@@ -12,6 +11,8 @@ public class CharacterChoice : MonoBehaviour
     private Camera _camera;
     
     public List<ChoosableCharacter> _choosableCharacters = new List<ChoosableCharacter>();
+    
+    private GameManager _gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +24,8 @@ public class CharacterChoice : MonoBehaviour
         
         _clickAction = InputSystem.actions.FindAction("Attack");
         _camera = Camera.main;
+        
+        _gameManager = FindAnyObjectByType<GameManager>();
 
         foreach (ChoosableCharacter choosable_character in FindObjectsByType<ChoosableCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -110,7 +113,7 @@ public class CharacterChoice : MonoBehaviour
         {
             Destroy(_player1.gameObject);
             Destroy(_player2.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            _gameManager.MainMenu();
         }
     }
 
@@ -142,7 +145,7 @@ public class CharacterChoice : MonoBehaviour
         else
         {
             _player1.enabled = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            _gameManager.GameScene();
         }
     }
 }

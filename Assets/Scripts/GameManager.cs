@@ -63,9 +63,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void StartGameLocal()
+    public void CustomizationScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
+    }
+
+    public void GameScene()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void Options()

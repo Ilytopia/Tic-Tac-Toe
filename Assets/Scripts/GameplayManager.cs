@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class GameplayManager : MonoBehaviour
@@ -342,7 +341,7 @@ public class GameplayManager : MonoBehaviour
         Destroy(_player1.gameObject);
         Destroy(_player2.gameObject);
         
-        SceneManager.LoadScene(0);
+        _gameManager.MainMenu();
     }
 
     public Player GetCurrentPlayer()
