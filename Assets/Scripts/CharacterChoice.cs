@@ -67,11 +67,15 @@ public class CharacterChoice : MonoBehaviour
                 {
                     _player1.SetSprite(choosable_character.GetSpriteRenderer().sprite);
                     _player1.SetHasSprite(true);
+                    _player1.SetVFXTexture(choosable_character.GetVFXTexture());
+                    _gameManager.ChangeVFXSprite(_player1.GetVFXTexture());
                 }
                 else
                 {
                     _player2.SetSprite(choosable_character.GetSpriteRenderer().sprite);
                     _player2.SetHasSprite(true);
+                    _player2.SetVFXTexture(choosable_character.GetVFXTexture());
+                    _gameManager.ChangeVFXSprite(_player2.GetVFXTexture());
                 }
             }
             else if (choosable_character.gameObject == hit.collider.gameObject &&
@@ -110,6 +114,15 @@ public class CharacterChoice : MonoBehaviour
             
             _player2.enabled = false;
             _player1.enabled = true;
+
+            if (_player1.GetVFXTexture())
+            {
+                _gameManager.ChangeVFXSprite(_player1.GetVFXTexture());
+            }
+            else
+            {
+                _gameManager.ChangeVFXSprite(null);
+            }
         }
         else
         {
@@ -148,6 +161,15 @@ public class CharacterChoice : MonoBehaviour
 
             _player1.enabled = false;
             _player2.enabled = true;
+            
+            if (_player2.GetVFXTexture())
+            {
+                _gameManager.ChangeVFXSprite(_player2.GetVFXTexture());
+            }
+            else
+            {
+                _gameManager.ChangeVFXSprite(null);
+            }
         }
         else
         {

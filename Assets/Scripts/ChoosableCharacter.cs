@@ -5,6 +5,8 @@ public class ChoosableCharacter : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private bool _characterChosen;
+    
+    [SerializeField] private Texture _VFXTexture;
 
     private void Start()
     {
@@ -24,5 +26,10 @@ public class ChoosableCharacter : MonoBehaviour
     public void SetCharacterChosen(bool character_chosen)
     {
         _characterChosen = character_chosen;
+    }
+
+    public Texture GetVFXTexture()
+    {
+        return _VFXTexture;
     }
 }

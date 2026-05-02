@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private InputAction _clickAction;
 
     [SerializeField] private GameObject _clickVFX;
+    private Texture _intitialVFXSprite;
     private VisualEffect _visualEffect;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     {
         _clickAction = InputSystem.actions.FindAction("Attack");
         _visualEffect = _clickVFX.GetComponent<VisualEffect>();
+
+        _intitialVFXSprite = _visualEffect.GetTexture("Sprite");
         
         // Remove extra GameManagers
         GameManager[] all_game_managers = FindObjectsByType<GameManager>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -58,8 +61,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangeVFXSprite(Texture new_texture)
+    {
+        if (!new_texture)
+        {
+            _visualEffect.SetBool("IsSpriteSheet", true);
+            _visualEffect.SetTexture("Sprite", _intitialVFXSprite);
+        }
+        else
+        {
+            _visualEffect.SetBool("IsSpriteSheet", false);
+            _visualEffect.SetTexture("Sprite", new_texture);
+        }
+    }
+
     public void MainMenu()
     {
+        ChangeVFXSprite(null);
         SceneManager.LoadScene(0);
     }
 
