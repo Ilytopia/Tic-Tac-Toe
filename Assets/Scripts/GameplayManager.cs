@@ -27,14 +27,14 @@ public class GameplayManager : MonoBehaviour
 
         if (_player1 == null || _player2 == null)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Unexpected Error : Need two players");
         }
         
         // _gameButtons = FindObjectsByType<GameGridDetections>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
 
         if (_gameButtons.Length != 9)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Unexpected Error : Need 9 game buttons");
         }
 
         switch (_random.Next(1, 3))
@@ -51,13 +51,22 @@ public class GameplayManager : MonoBehaviour
             }
             default:
             {
-                throw new NotImplementedException();
+                throw new NotImplementedException("Unexpected Error : No player selected to start game");
             }
         }
 
         _currentPlayerRoundText.text = _currentPlayer.gameObject.name;
         
         _gameManager = FindAnyObjectByType<GameManager>();
+
+        if (_currentPlayer.GetVFXTexture())
+        {
+            _gameManager.ChangeVFXSprite(_currentPlayer.GetVFXTexture());
+        }
+        else
+        {
+            throw new NotImplementedException("Unexpected Error : No VFX texture found");
+        }
     }
 
     // Update is called once per frame
@@ -80,6 +89,15 @@ public class GameplayManager : MonoBehaviour
         }
         
         _currentPlayerRoundText.text = _currentPlayer.gameObject.name;
+        
+        if (_currentPlayer.GetVFXTexture())
+        {
+            _gameManager.ChangeVFXSprite(_currentPlayer.GetVFXTexture());
+        }
+        else
+        {
+            throw new NotImplementedException("Unexpected Error : No VFX texture found");
+        }
     }
 
     // WARNING the array is in reverse order so 0 is the 9th box and 8 is the 1rst box
