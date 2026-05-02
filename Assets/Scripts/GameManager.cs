@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
@@ -15,6 +16,34 @@ public class GameManager : MonoBehaviour
     {
         _clickAction = InputSystem.actions.FindAction("Attack");
         _visualEffect = _clickVFX.GetComponent<VisualEffect>();
+        
+        // Remove extra GameManagers
+        GameManager[] all_game_managers = FindObjectsByType<GameManager>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        if (all_game_managers.Length > 1)
+        {
+            foreach (GameManager game_manager in all_game_managers)
+            {
+                if (game_manager == this)
+                {
+                    continue;
+                }
+                Destroy(game_manager.gameObject);
+            }
+        }
+        
+        // Remove extra ClickVFX
+        VisualEffect[] all_effects = FindObjectsByType<VisualEffect>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        if (all_effects.Length > 1)
+        {
+            foreach (VisualEffect effect in all_effects)
+            {
+                if (effect == _visualEffect)
+                {
+                    continue;
+                }
+                Destroy(effect.gameObject);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -27,6 +56,11 @@ public class GameManager : MonoBehaviour
             _visualEffect.Reinit();
             _visualEffect.Play();
         }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void StartGameLocal()
