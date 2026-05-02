@@ -66,10 +66,12 @@ public class CharacterChoice : MonoBehaviour
                 if (_player1.enabled)
                 {
                     _player1.SetSprite(choosable_character.GetSpriteRenderer().sprite);
+                    _player1.SetHasSprite(true);
                 }
                 else
                 {
                     _player2.SetSprite(choosable_character.GetSpriteRenderer().sprite);
+                    _player2.SetHasSprite(true);
                 }
             }
             else if (choosable_character.gameObject == hit.collider.gameObject &&
@@ -121,6 +123,11 @@ public class CharacterChoice : MonoBehaviour
     {
         if (_player1.enabled)
         {
+            if (!_player1.HasSprite())
+            {
+                return;
+            }
+            
             foreach (ChoosableCharacter choosable_character in _choosableCharacters)
             {
                 if (!choosable_character.enabled)
@@ -144,6 +151,11 @@ public class CharacterChoice : MonoBehaviour
         }
         else
         {
+            if (!_player2.HasSprite())
+            {
+                return;
+            }
+            
             _player1.enabled = false;
             _gameManager.GameScene();
         }
