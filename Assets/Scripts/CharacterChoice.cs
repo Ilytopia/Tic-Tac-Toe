@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class CharacterChoice : MonoBehaviour
@@ -12,6 +11,8 @@ public class CharacterChoice : MonoBehaviour
     private Camera _camera;
     
     public List<ChoosableCharacter> _choosableCharacters = new List<ChoosableCharacter>();
+    
+    private GameManager _gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +24,8 @@ public class CharacterChoice : MonoBehaviour
         
         _clickAction = InputSystem.actions.FindAction("Attack");
         _camera = Camera.main;
+        
+        _gameManager = FindAnyObjectByType<GameManager>();
 
         foreach (ChoosableCharacter choosable_character in FindObjectsByType<ChoosableCharacter>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -63,10 +66,16 @@ public class CharacterChoice : MonoBehaviour
                 if (_player1.enabled)
                 {
                     _player1.SetSprite(choosable_character.GetSpriteRenderer().sprite);
+                    _player1.SetHasSprite(true);
+                    _player1.SetVFXTexture(choosable_character.GetVFXTexture());
+                    _gameManager.ChangeVFXSprite(_player1.GetVFXTexture());
                 }
                 else
                 {
                     _player2.SetSprite(choosable_character.GetSpriteRenderer().sprite);
+                    _player2.SetHasSprite(true);
+                    _player2.SetVFXTexture(choosable_character.GetVFXTexture());
+                    _gameManager.ChangeVFXSprite(_player2.GetVFXTexture());
                 }
             }
             else if (choosable_character.gameObject == hit.collider.gameObject &&
@@ -105,12 +114,21 @@ public class CharacterChoice : MonoBehaviour
             
             _player2.enabled = false;
             _player1.enabled = true;
+
+            if (_player1.GetVFXTexture())
+            {
+                _gameManager.ChangeVFXSprite(_player1.GetVFXTexture());
+            }
+            else
+            {
+                _gameManager.ChangeVFXSprite(null);
+            }
         }
         else
         {
             Destroy(_player1.gameObject);
             Destroy(_player2.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            _gameManager.MainMenu();
         }
     }
 
@@ -118,6 +136,11 @@ public class CharacterChoice : MonoBehaviour
     {
         if (_player1.enabled)
         {
+            if (!_player1.HasSprite())
+            {
+                return;
+            }
+            
             foreach (ChoosableCharacter choosable_character in _choosableCharacters)
             {
                 if (!choosable_character.enabled)
@@ -138,11 +161,25 @@ public class CharacterChoice : MonoBehaviour
 
             _player1.enabled = false;
             _player2.enabled = true;
+            
+            if (_player2.GetVFXTexture())
+            {
+                _gameManager.ChangeVFXSprite(_player2.GetVFXTexture());
+            }
+            else
+            {
+                _gameManager.ChangeVFXSprite(null);
+            }
         }
         else
         {
+            if (!_player2.HasSprite())
+            {
+                return;
+            }
+            
             _player1.enabled = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            _gameManager.GameScene();
         }
     }
 }
