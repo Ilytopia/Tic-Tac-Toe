@@ -101,9 +101,16 @@ public class GameManager : MonoBehaviour
         //SceneManager.LoadScene("Options");
     }
 
-    public void WinningPopUp()
+    public void WinningPopUp(Player winning_player)
     {
-        SceneManager.LoadSceneAsync("PopUp", LoadSceneMode.Additive);
+        ChangeVFXSprite(null);
+        SceneManager.LoadScene("PopUp", LoadSceneMode.Additive);
+        // WinningPopup popup = FindFirstObjectByType<WinningPopup>();
+        // if (winning_player)
+        // {
+        //     Debug.Log(popup.name);
+        // }
+        // popup.InitializePopUp(winning_player);
     }
 
     public void QuitGame()

@@ -350,10 +350,10 @@ public class GameplayManager : MonoBehaviour
         }
         enabled = false;
         
+        _gameManager.WinningPopUp(_player1);
+        
         Destroy(_player1.gameObject);
         Destroy(_player2.gameObject);
-        
-        _gameManager.WinningPopUp();
     }
 
     public Player GetCurrentPlayer()
