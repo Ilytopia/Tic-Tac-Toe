@@ -69,12 +69,6 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ChangeTurn()
     {
         CheckWinningCondition();
@@ -359,7 +353,7 @@ public class GameplayManager : MonoBehaviour
         Destroy(_player1.gameObject);
         Destroy(_player2.gameObject);
         
-        _gameManager.MainMenu();
+        _gameManager.WinningPopUp();
     }
 
     public Player GetCurrentPlayer()

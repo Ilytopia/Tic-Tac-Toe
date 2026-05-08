@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (!_clickVFX)
+        {
+            _clickVFX = FindFirstObjectByType<VisualEffect>().gameObject;
+        }
+        
         _clickAction = InputSystem.actions.FindAction("Attack");
         _visualEffect = _clickVFX.GetComponent<VisualEffect>();
 
@@ -78,22 +83,27 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         ChangeVFXSprite(null);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
     }
 
     public void CustomizationScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
     }
 
     public void GameScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
     }
 
     public void Options()
     {
         //SceneManager.LoadScene("Options");
+    }
+
+    public void WinningPopUp()
+    {
+        SceneManager.LoadSceneAsync("PopUp", LoadSceneMode.Additive);
     }
 
     public void QuitGame()
